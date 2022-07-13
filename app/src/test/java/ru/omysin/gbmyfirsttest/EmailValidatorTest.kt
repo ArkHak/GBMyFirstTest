@@ -22,6 +22,11 @@ class EmailValidatorTest {
     }
 
     @Test
+    fun emailValidator_InvalidEmailEmptyTld_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@email."))
+    }
+
+    @Test
     fun emailValidator_InvalidEmailDoubleDot_ReturnsFalse() {
         assertFalse(EmailValidator.isValidEmail("name@email..com"))
     }
@@ -39,5 +44,50 @@ class EmailValidatorTest {
     @Test
     fun emailValidator_NullEmail_ReturnsFalse() {
         assertFalse(EmailValidator.isValidEmail(null))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailDomainEmpty_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@.com"))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailUsernameSpecialSymbolSlash_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("nam/e@email.com"))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailDomainSpecialSymbolSlash_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@em/ail.com"))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailTldSpecialSymbolSlash_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@email.c/om"))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailUsernameSpecialSymbolSpace_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("nam e@email.com"))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailUsernameStartSpecialSymbolSpace_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail(" name@email.com"))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailDomainSpecialSymbolSpace_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@em ail.com"))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailTldSpecialSymbolSpace_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@email.c om"))
+    }
+
+    @Test
+    fun emailValidator_InvalidEmailTldEndSpecialSymbolSpace_ReturnsFalse() {
+        assertFalse(EmailValidator.isValidEmail("name@email.com "))
     }
 }
